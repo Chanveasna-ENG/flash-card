@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Humanity 101</title>
+</head>
+
+<body class="wrapper">
+    <div class="timer-box" id="timer"></div>
+    <div class="box">
+        <p id="question">{{ question|safe }}</p>
+        <p id="answer" style="display: none;">{{ answer|safe }}</p>
+    </div>
+    <div class="button-container">
+        <button onclick="showAnswer();" class="button">Show Answer</button>
+        <a href="{{ url_for('next_question') }}"><button class="button">Next</button></a>
+    </div>
+    <script>
+        var timeLeft = 90;
+        var timerId = setInterval(countdown, 1000);
+
+        function countdown() {
+            if (timeLeft == 0) {
+                clearTimeout(timerId);
+                showAnswer();
+            } else {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft + " seconds remaining";
+            }
+        }
+
+        function showAnswer() {
+            clearInterval(timerId); // This will stop the timer
+            document.getElementById('answer').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
