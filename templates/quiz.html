@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>Humanity 101</title>
+    <title>Quiz</title>
 </head>
 
 <body class="wrapper">
@@ -36,6 +36,15 @@
             clearInterval(timerId); // This will stop the timer
             document.getElementById('answer').style.display = 'block';
         }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar action (scrolling)
+                showAnswer();
+            } else if (event.code === 'ArrowRight') {
+                window.location.href = "{{ url_for('next_question') }}";
+            }
+        });
     </script>
 </body>
 
